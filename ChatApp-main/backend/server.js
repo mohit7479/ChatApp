@@ -1,10 +1,14 @@
 const express = require("express");
-const chats = require("./data/data.js");
+//const chats = require("./data/data.js");
 const dotenv = require("dotenv");
 const cors = require("cors"); // Import cors package
 const connectDB = require("./config/db.js");
 const color = require('colors');
+const path = require("path");
+
 const userRoutes = require('./routes/userRoutes.js');
+const chatRoutes = require("./routes/chatRoutes");
+const messageRoutes = require("./routes/messageRoutes");
 const { errorHandler, notFound } = require("./middlewares/errorMiddleware.js");
 
 const app = express();
@@ -24,8 +28,8 @@ app.get("/", (req, res) => {
   res.send("Yoyo");
 });
 
-app.use('/api/user', userRoutes);
-
+app.use("/api/user", userRoutes);
+app.use("/api/chat", chatRoutes);
 app.use(notFound);
 app.use(errorHandler);
 
