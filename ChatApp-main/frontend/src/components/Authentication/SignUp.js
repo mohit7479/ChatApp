@@ -58,7 +58,7 @@ const SignUp = () => {
                 },
             };
             const { data } = await axios.post(
-                "/api/user",
+                "http://localhost:5000/api/user",
                 { name, email, password, pic },
                 config
             );

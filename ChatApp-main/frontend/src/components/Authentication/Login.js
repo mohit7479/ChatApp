@@ -14,7 +14,6 @@ import axios from "axios";
 import { ChatState } from "../../context/ChatProvider";
 
 const Login = () => {
-    const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [show, setShow] = useState(false);
@@ -30,7 +29,7 @@ const Login = () => {
         setLoading(true);
         if (!email || !password) {
             toast({
-                title: "Please Fill all the Feilds",
+                title: "Please fill all the fields",
                 status: "warning",
                 duration: 5000,
                 isClosable: true,
@@ -42,11 +41,11 @@ const Login = () => {
         try {
             const config = {
                 headers: {
-                    "Conttent-type": "application/json",
+                    "Content-type": "application/json", // Corrected header
                 },
             };
             const { data } = await axios.post(
-                "/api/user/login",
+                "http://localhost:5000/api/user/login",
                 { email, password },
                 config
             );
@@ -63,12 +62,12 @@ const Login = () => {
             navigate("/chats");
         } catch (error) {
             toast({
-                title: "Error Ocured!",
+                title: "Error Occurred!",
                 description: error.response.data.message,
                 status: "error",
                 duration: 5000,
                 isClosable: true,
-                position: "bottom",
+                position: "top",
             });
             setLoading(false);
         }
@@ -76,14 +75,6 @@ const Login = () => {
 
     return (
         <VStack spacing="5px" color="black">
-            <FormControl id="first-namel" isRequired>
-                <FormLabel>Name </FormLabel>
-                <Input
-                    placeholder="Enter your name"
-                    onChange={(e) => setName(e.target.value)}
-                    value={name}
-                />
-            </FormControl>
 
             <FormControl id="email" isRequired>
                 <FormLabel>Email </FormLabel>

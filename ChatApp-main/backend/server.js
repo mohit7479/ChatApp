@@ -13,26 +13,33 @@ const { errorHandler, notFound } = require("./middlewares/errorMiddleware.js");
 
 const app = express();
 dotenv.config();
-connectDB();
+
 
 app.use(express.json());
 
 // Enable CORS for all routes
-app.use(cors());
+app.use(cors({
+  origin: [process.env.FRONTEND_URL],
+  methods: ["POST", "GET"],
+  credentials: true,
+}));
+app.use(express.urlencoded({ extended: true }));
 
 // app.get("/api/chat", (req, res) => {
 //   res.send(chats);
 // });
 
-app.get("/", (req, res) => {
-  res.send("Yoyo");
-});
+// app.get("/", (req, res) => {
+//   res.send("Yoyo");
+// });
 
 app.use("/api/user", userRoutes);
 app.use("/api/chat", chatRoutes);
+app.use("/api/message", messageRoutes);
 app.use(notFound);
 app.use(errorHandler);
 
+connectDB();
 const port = process.env.PORT || 5000;
 
 app.listen(port, () => {

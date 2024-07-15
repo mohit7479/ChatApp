@@ -1,8 +1,9 @@
+import { Box } from '@chakra-ui/layout'
 import React from 'react'
 
 const ChatBox = () => {
     return (
-        <div>ChatBox</div>
+        <Box>chatbox </Box>
     )
 }
 

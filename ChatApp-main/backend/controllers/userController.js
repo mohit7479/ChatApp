@@ -58,14 +58,14 @@ const authUser = asyncHandler(async (req, res) => {
 const allUsers = asyncHandler(async (req, res) => {
     const keyword = req.query.search ? {
         $or: [
-            { name: { $regex: req.query.search, $option: "i" } },
-            { email: { $regex: req.query.search, $option: "i" } },
+            { name: { $regex: req.query.search, $options: "i" } },
+            { email: { $regex: req.query.search, $options: "i" } },
         ],
-    }
-        : {};
+    } : {};
 
     const users = await User.find(keyword).find({ _id: { $ne: req.user._id } });
-    res.send();
+    res.json(users); // Ensure response is in JSON format and is an array
 });
+
 
 module.exports = { registerUser, authUser, allUsers };
