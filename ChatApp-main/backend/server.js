@@ -20,7 +20,7 @@ app.use(express.json());
 // Enable CORS for all routes
 app.use(cors({
   origin: [process.env.FRONTEND_URL],
-  methods: ["POST", "GET"],
+  methods: ["POST", "GET", "PUT"],
   credentials: true,
 }));
 app.use(express.urlencoded({ extended: true }));

@@ -30,7 +30,7 @@ const SideDrawer = () => {
             toast({
                 title: "Please Enter something in search",
                 status: "warning",
-                duration: 5000,
+                duration: 3000,
                 isClosable: true,
                 position: "top-left",
             });
@@ -44,6 +44,7 @@ const SideDrawer = () => {
                 },
             };
             const { data } = await axios.get(`http://localhost:5000/api/user?search=${search}`, config);
+            //  console.log(data);
             setSearchResult(data);
             setLoading(false);
         } catch (error) {
@@ -52,7 +53,7 @@ const SideDrawer = () => {
                 title: "Error Occurred!",
                 description: error.response?.data?.message || "Failed to Load the Search Results",
                 status: "error",
-                duration: 5000,
+                duration: 3000,
                 isClosable: true,
                 position: "bottom-left",
             });
@@ -82,7 +83,7 @@ const SideDrawer = () => {
                 title: "Error fetching the chat",
                 description: error.message,
                 status: "error",
-                duration: 5000,
+                duration: 3000,
                 isClosable: true,
                 position: "bottom-left",
             });

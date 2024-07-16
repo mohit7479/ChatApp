@@ -6,8 +6,9 @@ import { AddIcon } from "@chakra-ui/icons";
 import { ChatState } from "../context/ChatProvider";
 import ChatLoading from "./ChatLoading";
 import { getSender } from "../config/ChatLogic";
+import GroupChatModal from "./miscellaneous/GroupChatModal";
 
-const MyChats = () => {
+const MyChats = ({ fetchAgain }) => {
     const [loggedUser, setLoggedUser] = useState();
     const { user, selectedChat, setSelectedChat, chats, setChats } = ChatState();
     const toast = useToast();
@@ -23,13 +24,13 @@ const MyChats = () => {
             };
             const { data } = await axios.get("http://localhost:5000/api/chat", config);
             setChats(data);
-            console.log(data);
+            //console.log(data);
         } catch (error) {
             toast({
                 title: "Error Occurred",
                 description: "Failed to Load the chats",
                 status: "error",
-                duration: 5000,
+                duration: 3000,
                 isClosable: true,
                 position: "bottom-left",
             });
@@ -40,7 +41,7 @@ const MyChats = () => {
         const userInfo = JSON.parse(localStorage.getItem("userInfo"));
         setLoggedUser(userInfo);
         if (userInfo) fetchChats();
-    }, [fetchChats]);
+    }, [fetchChats, fetchAgain]);
 
     return (
         <Box
@@ -64,13 +65,15 @@ const MyChats = () => {
                 alignItems="center"
             >
                 My Chats
-                <Button
-                    display="flex"
-                    fontSize={{ base: "17px", md: "10px", lg: "17px" }}
-                    rightIcon={<AddIcon />}
-                >
-                    New Group Chat
-                </Button>
+                <GroupChatModal>
+                    <Button
+                        display="flex"
+                        fontSize={{ base: "17px", md: "10px", lg: "17px" }}
+                        rightIcon={<AddIcon />}
+                    >
+                        New Group Chat
+                    </Button>
+                </GroupChatModal>
             </Box>
             <Box
                 display="flex"

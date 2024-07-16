@@ -1,10 +1,10 @@
 import React from 'react';
-import { ChatState } from '../../context/ChatProvider';
+// import { ChatState } from '../../context/ChatProvider';
 import { Box } from '@chakra-ui/layout';
 import { Avatar, Text } from '@chakra-ui/react';
 
-const UserItemList = ({ handleFunction }) => {
-    const { user } = ChatState();
+const UserItemList = ({ user, handleFunction }) => {
+    //const { user } = ChatState();
 
     return (
         <Box

@@ -31,7 +31,7 @@ const Login = () => {
             toast({
                 title: "Please fill all the fields",
                 status: "warning",
-                duration: 5000,
+                duration: 3000,
                 isClosable: true,
                 position: "top",
             });
@@ -53,7 +53,7 @@ const Login = () => {
             toast({
                 title: "Login Successful",
                 status: "success",
-                duration: 5000,
+                duration: 3000,
                 isClosable: true,
                 position: "bottom",
             });
@@ -65,7 +65,7 @@ const Login = () => {
                 title: "Error Occurred!",
                 description: error.response.data.message,
                 status: "error",
-                duration: 5000,
+                duration: 3000,
                 isClosable: true,
                 position: "top",
             });
@@ -76,16 +76,16 @@ const Login = () => {
     return (
         <VStack spacing="5px" color="black">
 
-            <FormControl id="email" isRequired>
+            <FormControl id="emaill" isRequired>
                 <FormLabel>Email </FormLabel>
                 <Input
-                    placeholder="Enter your email"
+                    placeholder="Enter email"
                     onChange={(e) => setEmail(e.target.value)}
                     value={email}
                 />
             </FormControl>
 
-            <FormControl id="password" isRequired>
+            <FormControl id="passwordl" isRequired>
                 <FormLabel>Password </FormLabel>
                 <InputGroup>
                     <Input

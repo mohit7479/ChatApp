@@ -5,7 +5,14 @@ const userSchema = mongoose.Schema(
     {
         name: { type: String, required: true },
         email: { type: String, required: true, unique: true },
-        password: { type: String, required: true },
+        password: {
+            type: String, required: true, validate: {
+                validator: function (value) {
+                    return /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(value);
+                },
+                message: `It is not a valid password. Password must be at least 8 characters long and contain one number, one special character, and one letter.`
+            }
+        },
         pic: {
             type: String,
             default:

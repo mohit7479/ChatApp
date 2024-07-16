@@ -2,7 +2,7 @@ import React from 'react'
 import { Box, Container, Text } from '@chakra-ui/react'
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
 import { useEffect } from 'react'
-// import the components
+
 import SignUp from '../components/Authentication/SignUp'
 import Login from '../components/Authentication/Login'
 import { useNavigate } from 'react-router-dom'

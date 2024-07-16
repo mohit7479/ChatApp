@@ -26,7 +26,113 @@ const SignUp = () => {
     const handleClick = () => setShow(!show);
 
     // image manage
-    const postDetails = (pics) => { };
+    // const postDetails = (pics) => {
+    //     setLoading(true);
+    //     if (pics === undefined) {
+    //         toast({
+    //             title: "Please Select an Image !",
+    //             description: "warning",
+    //             duration: 5000,
+    //             isClosable: true,
+    //             position: "top",
+    //         });
+    //         return;
+    //     }
+    //     if (pics.type === "image/jpeg" || pics.type === "image/png") {
+    //         const data = new FormData();
+    //         data.append("file", pics);
+    //         data.append("upload_preset", "chat-app");
+    //         data.append("cloud_name", "dmszoafyt");
+    //         fetch("https://api.cloudinary.com/v1_1/dmszoafyt/image/upload", {
+    //             method: "post",
+    //             body: data,
+    //         })
+    //             .then((res) => res.json())
+    //             .then((data) => {
+    //                 setPic(data.url.toString());
+    //                 console.log(data.url.toString());
+    //                 setLoading(false);
+    //             })
+    //             .catch((err) => {
+    //                 console.log(err);
+    //                 setLoading(false);
+    //             });
+    //     } else {
+    //         toast({
+    //             title: "Please Select an Image!",
+    //             status: "warning",
+    //             duration: 5000,
+    //             isClosable: true,
+    //             position: "bottom",
+    //         });
+    //         setLoading(false);
+    //         return;
+    //     }
+    // };
+    const postDetails = (pics) => {
+        setLoading(true);
+        if (pics === undefined) {
+            toast({
+                title: "Please Select an Image!",
+                status: "warning",
+                duration: 5000,
+                isClosable: true,
+                position: "top",
+            });
+            setLoading(false);
+            return;
+        }
+        if (pics.type === "image/jpeg" || pics.type === "image/png") {
+            const data = new FormData();
+            data.append("file", pics);
+            data.append("upload_preset", "chat-app");
+            data.append("cloud_name", "dmszoafyt");
+
+            fetch("https://api.cloudinary.com/v1_1/dmszoafyt/image/upload", {
+                method: "post",
+                body: data,
+            })
+                .then((res) => res.json())
+                .then((data) => {
+                    if (data.secure_url) {
+                        setPic(data.secure_url.toString());
+                        toast({
+                            title: "Image Uploaded Successfully!",
+                            status: "success",
+                            duration: 5000,
+                            isClosable: true,
+                            position: "top",
+                        });
+                        console.log(data.secure_url.toString());
+                    } else {
+                        throw new Error("Failed to upload image.");
+                    }
+                    setLoading(false);
+                })
+                .catch((err) => {
+                    console.error("Error uploading image:", err);
+                    toast({
+                        title: "Error Uploading Image!",
+                        description: err.message || "Something went wrong. Please try again.",
+                        status: "error",
+                        duration: 5000,
+                        isClosable: true,
+                        position: "top",
+                    });
+                    setLoading(false);
+                });
+        } else {
+            toast({
+                title: "Please Select a Valid Image!",
+                status: "warning",
+                duration: 5000,
+                isClosable: true,
+                position: "top",
+            });
+            setLoading(false);
+        }
+    };
+
 
     const submitHandler = async () => {
         setLoading(true);
@@ -34,9 +140,9 @@ const SignUp = () => {
             toast({
                 title: "Please Fill all the Feilds",
                 status: "warning",
-                duration: 5000,
+                duration: 3000,
                 isClosable: true,
-                position: "bottom",
+                position: "top",
             });
             setLoading(false);
             return;
@@ -45,9 +151,9 @@ const SignUp = () => {
             toast({
                 title: "Password Do Not Match",
                 status: "warning",
-                duration: 5000,
+                duration: 3000,
                 isClosable: true,
-                position: "bottom",
+                position: "top",
             });
             return;
         }
@@ -65,7 +171,7 @@ const SignUp = () => {
             toast({
                 title: "Registration Successful",
                 status: "success",
-                duration: 5000,
+                duration: 3000,
                 isClosable: true,
                 position: "bottom",
             });
@@ -77,7 +183,7 @@ const SignUp = () => {
                 title: "Error Ocured!",
                 description: error.response.data.message,
                 status: "error",
-                duration: 5000,
+                duration: 3000,
                 isClosable: true,
                 position: "bottom",
             });
@@ -122,7 +228,7 @@ const SignUp = () => {
                 </InputGroup>
             </FormControl>
 
-            <FormControl id="password" isRequired>
+            <FormControl id="cpassword" isRequired>
                 <FormLabel>Confirm Password </FormLabel>
                 <InputGroup>
                     <Input
