@@ -1,5 +1,4 @@
 const express = require("express");
-//const chats = require("./data/data.js");
 const dotenv = require("dotenv");
 const cors = require("cors"); // Import cors package
 const connectDB = require("./config/db.js");
